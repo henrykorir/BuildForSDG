@@ -9,7 +9,7 @@ const getDays = (input) => {
 };
 const getPower = (input) => {
   const days = getDays(input);
-  const index = (days / 3);
+  const index = Math.trunc(days / 3);
   const power = (2 ** index);
   return power;
 };
