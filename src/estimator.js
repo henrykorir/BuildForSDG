@@ -39,7 +39,7 @@ const SCBRT = (where, input) => {
 const HBBR = (where, input) => {
   const part1 = 0.35 * input.totalHospitalBeds;
   const part2 = SCBRT(where, input);
-  const result = Math.trunc(part1 - part2);
+  const result = part1 - part2;
   return result;
 };
 // Cases For ICU By Requested Time
@@ -52,30 +52,30 @@ const DI = (where, input) => {
   const { region } = input;
   const avg = region.avgDailyIncomeInUSD * region.avgDailyIncomePopulation;
   const infectionsByRequestedTime = IBRT(where, input);
-  return Math.trunc((infectionsByRequestedTime * avg) / days);
+  return ((infectionsByRequestedTime * avg) / days);
 };
 // Estimation function
 const estimation = (input) => {
-    const estimate = {
-      impact: {
-        currentlyInfected: CI('impact', input),
-        infectionsByRequestedTime: IBRT('impact', input),
-        severeCasesByRequestedTime: SCBRT('impact', input),
-        hospitalBedsByRequestedTime: HBBR('impact', input),
-        casesForICUByRequestedTime: ICU('impact', input),
-        casesForVentilatorsByRequestedTime: CFVBRT('impact', input),
-        dollarsInFlight: DI('impact', input)
-      },
-      severeImpact: {
-        currentlyInfected: CI('severeImpact', input),
-        infectionsByRequestedTime: IBRT('severeImpact', input),
-        severeCasesByRequestedTime: IBRT('severeImpact', input),
-        hospitalBedsByRequestedTime: HBBR('severeImpact', input),
-        casesForICUByRequestedTime: ICU('severeImpact', input),
-        casesForVentilatorsByRequestedTime: CFVBRT('severeImpact', input),
-        dollarsInFlight: DI('severeImpact', input)
-      }
-    };
+  const estimate = {
+    impact: {
+      currentlyInfected: Math.trunc(CI('impact', input)),
+      infectionsByRequestedTime: Math.trunc(IBRT('impact', input)),
+      severeCasesByRequestedTime: Math.trunc(SCBRT('impact', input)),
+      hospitalBedsByRequestedTime: Math.trunc(HBBR('impact', input)),
+      casesForICUByRequestedTime: Math.trunc(ICU('impact', input)),
+      casesForVentilatorsByRequestedTime: Math.trunc(CFVBRT('impact', input)),
+      dollarsInFlight: Math.trunc(DI('impact', input))
+    },
+    severeImpact: {
+      currentlyInfected: Math.trunc(CI('severeImpact', input)),
+      infectionsByRequestedTime: Math.trunc(IBRT('severeImpact', input)),
+      severeCasesByRequestedTime: Math.trunc(IBRT('severeImpact', input)),
+      hospitalBedsByRequestedTime: Math.trunc(HBBR('severeImpact', input)),
+      casesForICUByRequestedTime: Math.trunc(ICU('severeImpact', input)),
+      casesForVentilatorsByRequestedTime: Math.trunc(CFVBRT('severeImpact', input)),
+      dollarsInFlight: Math.trunc(DI('severeImpact', input))
+    }
+  };
   return estimate;
 };
 const covid19ImpactEstimator = (data) => {
