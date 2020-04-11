@@ -17,14 +17,16 @@ const getPower = (periodType, timeToElapse) => {
 };
 // Currently Infected
 const CI = (where, input) => {
+  const { reportedCases } = input;
   let value = 0;
-  if (where === 'impact') value = input.reportedCases * 10;
-  else value = input.reportedCases * 50;
+  if (where === 'impact') value = reportedCases * 10;
+  else value = reportedCases * 50;
   return value;
 };
 // infections by request time
 const IBRT = (where, input) => {
-  const power = getPower(input.periodType, input.timeToElapse);
+  const { periodType, timeToElapse } = input;
+  const power = getPower(periodType, timeToElapse);
   const value = power * CI(where, input);
   return value;
 };
