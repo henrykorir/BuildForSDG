@@ -56,10 +56,9 @@ const DI = (where, input) => {
 };
 // Estimation function
 const estimation = (input) => {
-  const object = {
-    estimate: {
+    const estimate = {
       impact: {
-        currentlyInfected: input.reportedCases * 10, // CI('impact', input),
+        currentlyInfected: CI('impact', input),
         infectionsByRequestedTime: IBRT('impact', input),
         severeCasesByRequestedTime: SCBRT('impact', input),
         hospitalBedsByRequestedTime: HBBR('impact', input),
@@ -68,7 +67,7 @@ const estimation = (input) => {
         dollarsInFlight: DI('impact', input)
       },
       severeImpact: {
-        currentlyInfected: input.reportedCases * 50, // CI('severeImpact', input),
+        currentlyInfected: CI('severeImpact', input),
         infectionsByRequestedTime: IBRT('severeImpact', input),
         severeCasesByRequestedTime: IBRT('severeImpact', input),
         hospitalBedsByRequestedTime: HBBR('severeImpact', input),
@@ -76,9 +75,8 @@ const estimation = (input) => {
         casesForVentilatorsByRequestedTime: CFVBRT('severeImpact', input),
         dollarsInFlight: DI('severeImpact', input)
       }
-    }
-  };
-  return object;
+    };
+  return estimate;
 };
 const covid19ImpactEstimator = (data) => {
   const input = data;
