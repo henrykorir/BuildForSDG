@@ -2,19 +2,15 @@ const getDays = (input) => {
   const { periodType } = input;
   const { timeToElapse } = input;
   let days = 0;
-  if (periodType === 'months') {
-    days = timeToElapse * 30;
-  } else if (periodType === 'weeks') {
-    days = timeToElapse * 7;
-  } else {
-    days = timeToElapse;
-  }
+  if (periodType.trim() === 'months') days = timeToElapse * 30;
+  if (periodType.trim() === 'weeks') days = timeToElapse * 7;
+  if (periodType.trim() === 'days') days = timeToElapse;
   return days;
 };
 const getPower = (input) => {
   const days = getDays(input);
   const index = (days / 3);
-  const power = 2 ** index;
+  const power = (2 ** index);
   return power;
 };
 // Currently Infected
