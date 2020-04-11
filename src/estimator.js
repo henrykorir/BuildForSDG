@@ -55,26 +55,29 @@ const DI = (where, input) => {
   return Math.trunc((infectionsByRequestedTime * avg) / days);
 };
 // Estimation function
-const estimation = (input) => ({
-  impact: {
-    currentlyInfected: input.reportedCases * 10, // CI('impact', input),
-    infectionsByRequestedTime: IBRT('impact', input),
-    severeCasesByRequestedTime: SCBRT('impact', input),
-    hospitalBedsByRequestedTime: HBBR('impact', input),
-    casesForICUByRequestedTime: ICU('impact', input),
-    casesForVentilatorsByRequestedTime: CFVBRT('impact', input),
-    dollarsInFlight: DI('impact', input)
-  },
-  severeImpact: {
-    currentlyInfected: input.reportedCases * 50, // CI('severeImpact', input),
-    infectionsByRequestedTime: IBRT('severeImpact', input),
-    severeCasesByRequestedTime: IBRT('severeImpact', input),
-    hospitalBedsByRequestedTime: HBBR('severeImpact', input),
-    casesForICUByRequestedTime: ICU('severeImpact', input),
-    casesForVentilatorsByRequestedTime: CFVBRT('severeImpact', input),
-    dollarsInFlight: DI('severeImpact', input)
-  }
-});
+const estimation = (input) => {
+  const estimate = {
+    impact: {
+      currentlyInfected: input.reportedCases * 10, // CI('impact', input),
+      infectionsByRequestedTime: IBRT('impact', input),
+      severeCasesByRequestedTime: SCBRT('impact', input),
+      hospitalBedsByRequestedTime: HBBR('impact', input),
+      casesForICUByRequestedTime: ICU('impact', input),
+      casesForVentilatorsByRequestedTime: CFVBRT('impact', input),
+      dollarsInFlight: DI('impact', input)
+    },
+    severeImpact: {
+      currentlyInfected: input.reportedCases * 50, // CI('severeImpact', input),
+      infectionsByRequestedTime: IBRT('severeImpact', input),
+      severeCasesByRequestedTime: IBRT('severeImpact', input),
+      hospitalBedsByRequestedTime: HBBR('severeImpact', input),
+      casesForICUByRequestedTime: ICU('severeImpact', input),
+      casesForVentilatorsByRequestedTime: CFVBRT('severeImpact', input),
+      dollarsInFlight: DI('severeImpact', input)
+    }
+  };
+  return estimate;
+};
 const covid19ImpactEstimator = (data) => {
   const input = data;
   const estimate = estimation(input);
