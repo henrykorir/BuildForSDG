@@ -57,7 +57,7 @@ const DI = (where, input) => {
 // Estimation function
 const estimation = (input) => ({
   impact: {
-    currentlyInfected: CI('impact', input),
+    currentlyInfected: input.reportedCases * 10,//CI('impact', input),
     infectionsByRequestedTime: IBRT('impact', input),
     severeCasesByRequestedTime: SCBRT('impact', input),
     hospitalBedsByRequestedTime: HBBR('impact', input),
@@ -66,7 +66,7 @@ const estimation = (input) => ({
     dollarsInFlight: DI('impact', input)
   },
   severeImpact: {
-    currentlyInfected: CI('severeImpact', input),
+    currentlyInfected: input.reportedCases * 50,//CI('severeImpact', input),
     infectionsByRequestedTime: IBRT('severeImpact', input),
     severeCasesByRequestedTime: IBRT('severeImpact', input),
     hospitalBedsByRequestedTime: HBBR('severeImpact', input),
