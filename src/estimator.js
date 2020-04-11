@@ -1,4 +1,6 @@
-const getDays = (periodType, timeToElapse) => {
+const getDays = (input) => {
+  const { periodType } = input;
+  const { timeToElapse } = input;
   let days = 0;
   if (periodType === 'months') {
     days = timeToElapse * 30;
@@ -9,8 +11,8 @@ const getDays = (periodType, timeToElapse) => {
   }
   return days;
 };
-const getPower = (periodType, timeToElapse) => {
-  const days = getDays(periodType, timeToElapse);
+const getPower = (input) => {
+  const days = getDays(input);
   const index = (days / 3);
   const power = 2 ** index;
   return power;
@@ -24,7 +26,7 @@ const CI = (where, input) => {
 };
 // infections by request time
 const IBRT = (where, input) => {
-  const power = getPower(input.periodType, input.timeToElapse);
+  const power = getPower(input);
   const value = power * CI(where, input);
   return value;
 };
@@ -46,7 +48,7 @@ const ICU = (where, input) => IBRT(where, input) * 0.05;
 const CFVBRT = (where, input) => IBRT(where, input) * 0.02;
 // Get Dollars Inflight
 const DI = (where, input) => {
-  const days = getDays(input.periodType, input.timeToElapse);
+  const days = getDays(input);
   const avg = input.region.avgDailyIncomeInUSD * input.region.avgDailyIncomePopulation;
   const infectionsByRequestedTime = IBRT(where, input);
   return ((infectionsByRequestedTime * avg) / days);
