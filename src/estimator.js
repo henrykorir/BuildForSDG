@@ -17,16 +17,14 @@ const getPower = (periodType, timeToElapse) => {
 };
 // Currently Infected
 const CI = (where, input) => {
-  const { reportedCases } = input;
   let value = 0;
-  if (where === 'impact') value = reportedCases * 10;
-  else value = reportedCases * 50;
+  if (where === 'impact') value = input.reportedCases * 10;
+  else value = input.reportedCases * 50;
   return value;
 };
 // infections by request time
 const IBRT = (where, input) => {
-  const { periodType, timeToElapse } = input;
-  const power = getPower(periodType, timeToElapse);
+  const power = getPower(input.periodType, input.timeToElapse);
   const value = power * CI(where, input);
   return value;
 };
@@ -49,8 +47,7 @@ const CFVBRT = (where, input) => IBRT(where, input) * 0.02;
 // Get Dollars Inflight
 const DI = (where, input) => {
   const days = getDays(input.periodType, input.timeToElapse);
-  const { region } = input;
-  const avg = region.avgDailyIncomeInUSD * region.avgDailyIncomePopulation;
+  const avg = input.region.avgDailyIncomeInUSD * input.region.avgDailyIncomePopulation;
   const infectionsByRequestedTime = IBRT(where, input);
   return ((infectionsByRequestedTime * avg) / days);
 };
